@@ -20,7 +20,7 @@ server = app.server
 app.config.suppress_callback_exceptions = True
 
 app.layout = layout()
-app.title = "Deep unsupervised learning methods for the identification and characterization of TCR specificity"
+app.title = "Deep unsupervised learning methods for TCR specificity"
 
 callbacks(app)
 

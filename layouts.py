@@ -15,7 +15,7 @@ test_base64 = base64.b64encode(open(test_png, 'rb').read()).decode('ascii')
 def layout():
     return html.Div(
         [
-            html.Div([html.Center([html.H1("Deep unsupervised learning methods for the identification and characterization of TCR specificity to Sars-Cov-2"),
+            html.Div([html.Center([html.H1("Deep unsupervised learning methods for TCR specificity"),
             html.Div(html.H5("Yanis Miraoui"),style={"color":"blue"}),
             html.Div(html.H5("CID: 01731821 / Imperial College London"),style={"color":"blue"}),
             html.Div(html.H5("yanis.miraoui19@imperial.ac.uk"),style={"color":"blue"}),
@@ -78,10 +78,11 @@ def home_tab():
                 html.Div([
                             html.Div(
                                 [
-                                     html.Div([ html.Div(html.H3("Predicted representation:"),style={"font-size":"5.0rem"}), 
+                                     html.Div([ html.Div(html.H3("Predicted cluster specificity:"),style={"font-size":"5.0rem"}), 
                                                 html.Div(html.Center([],id="result_text",style={"font-size":"5.0rem"})), 
+                                                html.Div(html.Center([],id="perform_stats",style={"font-size":"3.0rem"})),
                                                 html.Br(),
-                                                html.Div([],id="result_conf",style={"color":"blue", "font-size":"2.0rem"})]),
+                                                ]),
                                 ],className="spaced_div pretty_container" 
                             ),
                         ],
@@ -110,7 +111,13 @@ def home_tab():
                             )
                         ],
                         className="five columns",
-                    )
-                ],style={"display":"flex"},id="main_frame_div"
-            )])
+                    ),
+                ],style={"display":"inline-flex"}
+                ),
+            html.Div(
+                [html.Div(html.Img(id="plot",style={"width":"80%", }))],
+                className="spaced div pretty_container", style={'textAlign': 'center'}
+            ),  
+                ],style={"display":"inline-block"},id="main_frame_div"
+            )
 
