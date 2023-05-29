@@ -93,5 +93,5 @@ def callbacks(app):
         return [
                 img,
                 f" {target}, with {target_perc:.2f}% of the cluster having the same specificity",
-                [f"Silhouette score: {perform_stats[0]:.2f}", html.Br(), f"Calinski-Harabasz score: {perform_stats[1]:.2f}", html.Br(),  f"Davies-Bouldin score: {perform_stats[2]:.2f}"
+                [f"Silhouette score: {perform_stats[0]:.2f}", html.Br(), f"Calinski-Harabasz score: {perform_stats[1]:.2f}", html.Br(),  f"Davies-Bouldin score: {perform_stats[2]:.2f}"]
         ]
