@@ -82,7 +82,7 @@ def callbacks(app):
             prediction = encoder.predict(X_test)
             img, target, target_perc, perform_stats = plot_clusters(sample, prediction, model_name)
         else:
-            return ["", "No text specified", ""]
+            return ["", "No CDR3 sequence specified", ""]
 
 
 
