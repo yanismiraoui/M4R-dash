@@ -23,6 +23,7 @@ def load_data():
 
 def preprocess(data, user_data, model_name, N=100):
     X_test = None
+    sample = None
     if model_name == "Simple AutoEncoder":
         if data["CDR3"].str.contains(user_data).any():
             # select one row only with user data

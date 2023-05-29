@@ -1,13 +1,5 @@
 import dash
-from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
-import plotly.express as px
-import pandas as pd
-import plotly.graph_objs as go
-import os
-import json
-import datetime
-import dash_auth
 from layouts import layout
 from callbacks import callbacks
 

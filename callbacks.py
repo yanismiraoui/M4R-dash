@@ -2,10 +2,8 @@ import dash
 from dash.dependencies import Input, Output, State
 import pandas as pd
 from utils.helpers import *
-import numpy as np
 import time
 import tensorflow as tf
-import base64
 
 
 def callbacks(app):
