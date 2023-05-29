@@ -74,7 +74,11 @@ def callbacks(app):
             return ["", "No model specified", ""]
         if len(perso_cdr3sequence) > 10:
             time.sleep(3)
-            X_test, sample = preprocess(data, random_cdr3sequence, model_name)
+            if len(perso_cdr3sequence) > 20:
+                return ["", "Sequence must have a length less than 20", ""]
+            elif len(perso_cdr3sequence) < 20:
+                perso_cdr3sequence = align_seqs(perso_cdr3sequence)
+            X_test, sample = preprocess(data, perso_cdr3sequence, model_name)
             prediction = encoder.predict(X_test)
             img, target, target_perc, perform_stats = plot_clusters(sample, prediction, model_name)
         elif len(random_cdr3sequence) > 10:

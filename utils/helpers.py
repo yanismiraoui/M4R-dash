@@ -11,6 +11,14 @@ import tensorflow as tf
 import numpy as np
 
 
+def align_seqs(seq, target_len=20):
+    initial_len = len(seq)
+    if initial_len < target_len:
+        # insert gaps in the middle of the sequence
+        n_gaps = target_len - initial_len
+        # insert gaps in the middle of the sequence
+        seq = seq[:initial_len//2] + '-'*n_gaps + seq[initial_len//2:]
+    return seq
 
 def converter(instr):
     return np.fromstring(instr[1:-1],sep=' ')
