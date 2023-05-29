@@ -30,6 +30,6 @@ seaborn==0.12.2
 stack-data==0.6.2
 statsmodels==0.13.5
 tenacity==8.1.0
-tensorflow==2.13.0rc0
+tensorflow-cpu==2.13.0rc0
 tensorflow-estimator==2.13.0rc0
 umap-learn==0.5.3
