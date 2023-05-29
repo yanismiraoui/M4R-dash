@@ -68,6 +68,28 @@ def home_tab():
                                     html.Div(id="output_random")
                                 ],className="spaced_div"
                             ),
+                            html.Div(
+                                [   
+                                    html.Br(),
+                                    html.Br(),
+                                    html.Div(html.I("Choose V-gene from list:\n")),
+                                    dcc.Dropdown(
+                                        placeholder="v-gene",
+                                        id="v_gene",
+                                        multi=False,
+                                    ),
+                                    html.Br(),
+                                    html.Div(html.I("Choose J-gene from list:\n")),
+                                    dcc.Dropdown(
+                                        placeholder="j-gene",
+                                        id="j_gene",
+                                        multi=False,
+                                    ),
+                                    html.Div(id="output_gene"),
+                                    html.Br(),
+                                    html.Div(html.H5("Note that choosing the v-gene and j-gene has no impact on the results for the Simple AutoEncoder model.",style={"color":"red"})),
+                                ],className="spaced_div"
+                            ),
                         ],
                         className="pretty_container",
                     ),
@@ -75,8 +97,8 @@ def home_tab():
                             html.Div(
                                 [
                                      html.Div([ html.Div(html.H3("Predicted cluster specificity:"),style={"font-size":"5.0rem"}), 
-                                                html.Div(html.Center([],id="result_text",style={"font-size":"5.0rem"})), 
-                                                html.Div(html.Center([],id="perform_stats",style={"font-size":"3.0rem"})),
+                                                html.Div(html.Center([],id="result_text",style={"font-size":"3.0rem"})), 
+                                                html.Div(html.Center([],id="perform_stats",style={"font-size":"2.0rem"})),
                                                 html.Br(),
                                                 ]),
                                 ],className="spaced_div pretty_container" 
@@ -89,12 +111,11 @@ def home_tab():
                                 [
                                     html.Div(html.H3("Guidelines: "),style={"font-size":"5.0rem"}),
                                     html.Div(html.H5("1. Choose a model from which the latent space representation will be computed.")),
-                                    html.Div(html.H5("2. Type your own CDR3 sequence or click on the 'Generate' button to generate an existing CDR3 sequence at random.")),
-                                    html.Div(html.H5("3. Choose the v-gene and j-gene of your TCR from the large list provided.")),
-                                    html.Div(html.H5("4. Click on the 'Predict' button to get the predicted representation of your TCR along with the results of its clustering.")),
+                                    html.Div(html.H5("2. Type your own CDR3 sequence and choose the V-gene and J-gene or click on the 'Generate' button to generate an existing CDR3 sequence at random.")),
+                                    html.Div(html.H5("3. Wait a few seconds for the results to be computed and the plot to be shown below.")),
                                     html.Div(html.H3("Results:"), style={"font-size":"5.0rem"}),
                                     html.Div(html.H5(" - The prediction embedding is computed and its reducted representation is shown along with random other sequences (using UMAP).")),
-                                    html.Div(html.H5(" - The group to which the TCR is mostly to belong to is displayed along with the most represented antigen of that group.")),
+                                    html.Div(html.H5(" - The group to which the TCR belongs to is displayed along with the most represented antigen of that group.")),
                                     html.Div(html.H5(" - The clusters are determined using UMAP and K-Means clustering (with cross-validation for the choice of k).")),
                                     html.Div(html.H5("PLEASE NOTE: the website can sometimes be slow to load the text and the results. Please wait a few seconds for the content to load."),style={"color":"red"}),
                                 ],className="spaced_div pretty_container" 
