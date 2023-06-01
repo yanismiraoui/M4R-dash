@@ -1,6 +1,6 @@
 # WEB APP : Deep unsupervised learning methods for the identification and characterization of TCR specificity 🫁🫀
 
-This dashboard aims to show how perform the different deep learning methods described in the paper when given a real CDR3 sequence or a personnalized one.
+This dashboard aims to show how perform the different deep learning methods described in the paper **Deep unsupervised learning methods for the identification and characterization of TCR specificity**, when given a real CDR3 sequence or a personnalized one.
 
 
 
@@ -17,7 +17,8 @@ This dashboard aims to show how perform the different deep learning methods desc
 
 #### PLEASE NOTE: the website can sometimes be slow to load the text and the predictions. Please wait a few seconds for the content to load. This web application is hosted on Replit and Heroku.
 
+:link: <a  style="display: inline;"  href=""> Paper
 
-:link: <a  style="display: inline;"  href=""> Website of the demo
+:link: <a  style="display: inline;"  href="https://m4r-dash.yanismiraoui.repl.co/"> Website of the demo
  
 :link: <a  style="display: inline;"  href="https://github.com/yanismiraoui/M4R-Project-Notebooks"> Github repository of the main analysis

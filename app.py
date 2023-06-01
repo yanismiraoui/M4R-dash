@@ -17,4 +17,4 @@ app.title = "Deep unsupervised learning methods for TCR specificity"
 callbacks(app)
 
 if __name__ == "__main__":
-    app.run_server(host="0.0.0.0", port="8080", debug=True)
+    app.run_server(host="127.0.0.1", port="8050", debug=True)

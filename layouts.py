@@ -16,8 +16,8 @@ def layout():
             html.Div(html.H5("CID: 01731821 / Imperial College London"),style={"color":"blue"}),
             html.Div(html.H5("yanis.miraoui19@imperial.ac.uk"),style={"color":"blue"}),
             ])]),
-            html.Div([dbc.Tabs([dbc.Tab(home_tab(),label="Home")])]
-        )])
+            html.Div([dbc.Tabs([dbc.Tab(home_tab(),label="Home"), dbc.Tab(compare_models(),label="Compare models"), dbc.Tab(about_tab(),label="About")])])
+        ])
 
 def home_tab():
     return html.Div([html.Div([
@@ -27,6 +27,21 @@ def home_tab():
                             ),
                             html.Div(
                                 [
+                                    html.I("Number of points:\n"),
+                                    html.Div([
+                                    dcc.Input(
+                                        placeholder="Number of points for the plot",
+                                        type="number",
+                                        value=100,
+                                        id="nb_points",
+                                        style={'width': '40%'}
+                                    )],),
+                                ],className="spaced_div"
+                            ),
+                            html.Div(
+                                [
+                                    html.Br(),
+                                    html.Br(),
                                     html.I("Choose the representation model below:\n"),
                                     dcc.Dropdown(
                                         placeholder="Deep learning models",
@@ -137,4 +152,133 @@ def home_tab():
             ),  
                 ],style={"display":"inline-block"},id="main_frame_div"
             )
+
+def compare_models():
+    return html.Div([
+                 html.Div([
+                            html.Div(
+                                [dcc.Store(data=[], id="results_data_compare"), dcc.Store(data=[], id="model_stats")]
+                            ),
+                            html.Div(
+                                [
+                                    html.I("Number of points:\n"),
+                                    html.Div([
+                                    dcc.Input(
+                                        placeholder="Number of points for the plot",
+                                        type="number",
+                                        value=100,
+                                        id="nb_points_compare",
+                                        style={'width': '40%'}
+                                    )],),
+                                ],className="spaced_div"
+                            ),
+                            html.Div(
+                                [
+                                    html.Br(),
+                                    html.Br(),
+                                    html.I("Type your personalized CDR3 sequence below :\n"),
+                                    html.Div([
+                                    dcc.Input(
+                                        placeholder="Type your CDR3 sequence here",
+                                        type="text",
+                                        value="",
+                                        id="perso_cdr3sequence_compare",
+                                        style={'width': '90%'}
+                                    )],),
+                                    html.Div(id="output_compare")
+                                ],className="spaced_div"
+                            ),
+                            html.Div(
+                                [   
+                                    html.Br(),
+                                    html.Br(),
+                                    html.Div(html.I("Click this button if you want to use an existing CDR3 sequence at random :\n")),
+                                    html.Div([
+                                    dcc.Input(
+                                        placeholder="Random CDR3 sequence will appear here",
+                                        type="text",
+                                        value="",
+                                        id="random_cdr3sequence_compare",
+                                        style={'width': '90%'}
+                                    )],),
+                                    html.Div(html.Button('Generate CDR3 sequence', id='submit_val_random_compare', n_clicks=0)),
+                                    html.Div(id="output_random_compare")
+                                ],className="spaced_div"
+                            ),
+                            html.Div(
+                                [   
+                                    html.Br(),
+                                    html.Br(),
+                                    html.Div(html.I("Choose V-gene from list:\n")),
+                                    dcc.Dropdown(
+                                        placeholder="v-gene",
+                                        id="v_gene_compare",
+                                        multi=False,
+                                    ),
+                                    html.Br(),
+                                    html.Div(html.I("Choose J-gene from list:\n")),
+                                    dcc.Dropdown(
+                                        placeholder="j-gene",
+                                        id="j_gene_compare",
+                                        multi=False,
+                                    ),
+                                    html.Div(id="output_gene_compare"),
+                                    html.Br(),
+                                    html.Div(html.H5("Note that choosing the v-gene and j-gene has no impact on the results for the Simple AutoEncoder amd Transformers model.",style={"color":"red"})),
+                                ],className="spaced_div"
+                            ),
+                            html.Div(
+                                [
+                                    html.Br(),
+                                    html.Div(html.Button('Compare different models', id='compare_button', n_clicks=0)),
+                                    html.Div(id="status_seq")
+                                ],className="spaced_div"
+                            ),
+                        ],
+                        className="pretty_container",
+                    ),
+            html.Div(
+                [html.Div(html.Img(id="plot1",style={"width":"80%", })),
+                html.Div([html.Center([],id="plot1_description",style={"font-size":"3.0rem"})]),  
+                ],className="spaced div pretty_container",
+            ),
+            html.Div(
+                [html.Div(html.Img(id="plot2",style={"width":"80%", })),
+                html.Div([html.Center([],id="plot2_description",style={"font-size":"3.0rem"})]),
+                ],className="spaced div pretty_container",
+            ),
+            html.Div(
+                [html.Div(html.Img(id="plot3",style={"width":"80%", })),
+                html.Div([html.Center([],id="plot3_description",style={"font-size":"3.0rem"})]),
+                ],className="spaced div pretty_container",
+            ),
+            html.Div(
+                [html.Div(html.Img(id="plot4",style={"width":"80%", })),
+                html.Div([html.Center([],id="plot4_description",style={"font-size":"3.0rem"})]),
+                ],className="spaced div pretty_container",
+            ),
+                ],style={"display":"inline-block"},id="main_frame_div_compare"
+            )
+
+    
+
+def about_tab():
+    return html.Div(
+                    [
+                        html.Div(html.H3("About the project: "),style={"font-size":"2.0rem"}),
+                        html.Div(html.H5("The project was supervised by Dr. Barbara Bravi at Imperial College London in 2022-2023.")),
+                        html.Br(),
+                        html.Div(html.H3("About the data: "),style={"font-size":"2.0rem"}),
+                        html.Div(html.H5("The data used for this project was obtained from the article 'A large-scale database of t-cell receptor beta (tcr) sequences and binding associations from natural and synthetic exposure to sars-cov-2'. The data can be obtained online and is publicly available.")),
+                        html.Br(),
+                        html.Div(html.H3("About the models: "),style={"font-size":"2.0rem"}),
+                        html.Div(html.H5("The models used for this project are the ones investigated in the analysis 'Deep unsupervised learning methods for the identification and characterization of TCR specificity to Sars-Cov-2'. The building and the analysis of these models are available on GitHub: https://github.com/yanismiraoui")),
+                        html.Br(),
+                        html.Div(html.H3("About the website: "),style={"font-size":"2.0rem"}),
+                        html.Div(html.H5("The website was developed using Python, AWS, Heroku and Replit.")),
+                    ],className="pretty_container", style={'textAlign': 'center'}
+                ),
+
+
+
 
