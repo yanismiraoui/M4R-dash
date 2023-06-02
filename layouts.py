@@ -11,12 +11,12 @@ test_base64 = base64.b64encode(open(test_png, 'rb').read()).decode('ascii')
 def layout():
     return html.Div(
         [
-            html.Div([html.Center([html.H1("Deep unsupervised learning methods for TCR specificity"),
+            html.Div([html.Center([html.H1("Deep unsupervised learning methods for TCR specificity 🧬"),
             html.Div(html.H5("Yanis Miraoui"),style={"color":"blue"}),
             html.Div(html.H5("CID: 01731821 / Imperial College London"),style={"color":"blue"}),
             html.Div(html.H5("yanis.miraoui19@imperial.ac.uk"),style={"color":"blue"}),
             ])]),
-            html.Div([dbc.Tabs([dbc.Tab(home_tab(),label="Home"), dbc.Tab(compare_models(),label="Compare models"), dbc.Tab(about_tab(),label="About")])])
+            html.Div([dbc.Tabs([dbc.Tab(home_tab(),label="Home 🏠"), dbc.Tab(compare_models(),label="Compare models ⚖️"), dbc.Tab(about_tab(),label="About 📄")])])
         ])
 
 def home_tab():
