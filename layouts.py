@@ -157,7 +157,7 @@ def compare_models():
     return html.Div([
                  html.Div([
                             html.Div(
-                                [dcc.Store(data=[], id="results_data_compare"), dcc.Store(data=[], id="model_stats")]
+                                [dcc.Store(data=[], id="results_data_compare"), dcc.Store(data=[], id="model_stats_compare")]
                             ),
                             html.Div(
                                 [
