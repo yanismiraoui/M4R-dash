@@ -90,9 +90,13 @@ def callbacks(app):
             return ["", "Maximum number of points is 1000", ""]
         if model_name:
             models_dict = {"Simple AutoEncoder": "simple_ae", "Optimized Deep AutoEncoder": "deep_ae", "Variational AutoEncoder": "vae", "Transformers (TCR-BERT)": "transformers"}
-            if model_name != "Transformers":
+            if model_name != "Transformers (TCR-BERT)" and model_name != "Variational AutoEncoder":
                 model = tf.keras.models.load_model(f'./models/{models_dict[model_name]}.h5')
                 encoder = tf.keras.models.load_model(f'./models/{models_dict[model_name]}_encoder.h5')
+            elif model_name == "Variational AutoEncoder":
+                        res = build_vae()
+                        res["vae"].load_weights(f'./models/{models_dict[model_name]}_weights.h5')
+                        encoder = res["encoder"]
             test_png = f'./assets/performance_{model_name}.png'
         else:
             return ["", "No model specified", ""]
@@ -120,6 +124,8 @@ def callbacks(app):
             else:
                 X_test, sample = preprocess(data, perso_cdr3sequence, v_gene, j_gene, model_name, N=int(nb_points))
                 prediction = encoder.predict(X_test)
+            if model_name == "Variational AutoEncoder":
+                        prediction = prediction[0]
             img, target, target_perc, perform_stats = plot_clusters(sample, prediction, model_name)
         elif len(random_cdr3sequence) > 10:
             if model_name == "Transformers (TCR-BERT)":
@@ -135,6 +141,8 @@ def callbacks(app):
             else:
                 X_test, sample = preprocess(data, random_cdr3sequence, v_gene, j_gene, model_name, N=int(nb_points))
                 prediction = encoder.predict(X_test)
+            if model_name == "Variational AutoEncoder":
+                prediction = prediction[0]
             img, target, target_perc, perform_stats = plot_clusters(sample, prediction, model_name)
         else:
             return ["", "No CDR3 sequence specified", ""]
@@ -210,6 +218,7 @@ def callbacks(app):
             Output("plot4_description","children"),
         ],
         [
+            Input("compare_button", "n_clicks"),
             Input("perso_cdr3sequence_compare", "value"),
             Input("random_cdr3sequence_compare", "value"),
             Input("results_data_compare", "data"),
@@ -218,7 +227,7 @@ def callbacks(app):
             Input("j_gene_compare", "value"),
         ],
     )
-    def compare_results(perso_cdr3sequence, random_cdr3sequence, data, nb_points, v_gene, j_gene):
+    def compare_results(compare_button, perso_cdr3sequence, random_cdr3sequence, data, nb_points, v_gene, j_gene):
         time.sleep(1)
         if not data:
             return dash.no_update, dash.no_update, dash.no_update, dash.no_update, dash.no_update
@@ -244,27 +253,63 @@ def callbacks(app):
                 models_dict = {"Simple AutoEncoder": "simple_ae", "Optimized Deep AutoEncoder": "deep_ae", "Variational AutoEncoder": "vae", "Transformers (TCR-BERT)": "transformers"}
                 plots = {}
                 for model_name in models_dict.keys():    
-                    model = tf.keras.models.load_model(f'./models/{models_dict[model_name]}.h5')
-                    encoder = tf.keras.models.load_model(f'./models/{models_dict[model_name]}_encoder.h5')
+                    if model_name != "Transformers (TCR-BERT)" and model_name != "Variational AutoEncoder":
+                        encoder = tf.keras.models.load_model(f'./models/{models_dict[model_name]}_encoder.h5')
+                    elif model_name == "Variational AutoEncoder":
+                        res = build_vae()
+                        res["vae"].load_weights(f'./models/{models_dict[model_name]}_weights.h5')
+                        encoder = res["encoder"]
                     test_png = f'./assets/performance_{model_name}.png'
-                    X_test, sample = preprocess(data, perso_cdr3sequence, v_gene, j_gene, model_name, N=int(nb_points))
-                    prediction = encoder.predict(X_test)
+                    if model_name == "Transformers (TCR-BERT)":
+                        import model_utils
+                        X_test, sample = preprocess(data, perso_cdr3sequence, v_gene, j_gene, model_name, N=int(nb_points))
+                        prediction = model_utils.get_transformer_embeddings(
+                                                                                model_dir="wukevin/tcr-bert",
+                                                                                seqs=X_test,
+                                                                                layers=[-7],
+                                                                                method="mean",
+                                                                                device=3,
+                                                                            )
+                    
+                    else:
+                        X_test, sample = preprocess(data, perso_cdr3sequence, v_gene, j_gene, model_name, N=int(nb_points))
+                        prediction = encoder.predict(X_test)
+                    if model_name == "Variational AutoEncoder":
+                        prediction = prediction[0]
                     img, target, target_perc, perform_stats = plot_clusters(sample, prediction, model_name)
                     plots[model_name] = [img, target, target_perc, perform_stats]
             elif len(random_cdr3sequence) > 10:
                 models_dict = {"Simple AutoEncoder": "simple_ae", "Optimized Deep AutoEncoder": "deep_ae", "Variational AutoEncoder": "vae", "Transformers (TCR-BERT)": "transformers"}
                 plots = {}
-                for model_name in models_dict.keys():    
-                    model = tf.keras.models.load_model(f'./models/{models_dict[model_name]}.h5')
-                    encoder = tf.keras.models.load_model(f'./models/{models_dict[model_name]}_encoder.h5')
+                for model_name in models_dict.keys():
+                    if model_name != "Transformers (TCR-BERT)" and model_name != "Variational AutoEncoder":
+                        encoder = tf.keras.models.load_model(f'./models/{models_dict[model_name]}_encoder.h5')
+                    elif model_name == "Variational AutoEncoder":
+                        res = build_vae()
+                        res["vae"].load_weights(f'./models/{models_dict[model_name]}_weights.h5')
+                        encoder = res["encoder"]
                     test_png = f'./assets/performance_{model_name}.png'
-                    X_test, sample = preprocess(data, random_cdr3sequence, v_gene, j_gene, model_name, N=int(nb_points))
-                    prediction = encoder.predict(X_test)
+                    if model_name == "Transformers (TCR-BERT)":
+                        import model_utils
+                        X_test, sample = preprocess(data, random_cdr3sequence, v_gene, j_gene, model_name, N=int(nb_points))
+                        prediction = model_utils.get_transformer_embeddings(
+                                                                                model_dir="wukevin/tcr-bert",
+                                                                                seqs=X_test,
+                                                                                layers=[-7],
+                                                                                method="mean",
+                                                                                device=3,
+                                                                            )
+                    
+                    else:
+                        X_test, sample = preprocess(data, random_cdr3sequence, v_gene, j_gene, model_name, N=int(nb_points))
+                        prediction = encoder.predict(X_test)
+                    if model_name == "Variational AutoEncoder":
+                        prediction = prediction[0]
                     img, target, target_perc, perform_stats = plot_clusters(sample, prediction, model_name)
                     plots[model_name] = [img, target, target_perc, perform_stats]
 
             else:
-                return ["No CDR3 sequence specified", "", "", "", "", "", "", "", ""]
+                return ["Click compare button", "", "", "", "", "", "", "", ""]
 
 
 
@@ -277,7 +322,7 @@ def callbacks(app):
                     [f"Silhouette score: {plots['Simple AutoEncoder'][3][0]}", html.Br(), f"Calinski-Harabasz score: {plots['Simple AutoEncoder'][3][1]}", html.Br(),  f"Davies-Bouldin score: {plots['Simple AutoEncoder'][3][2]}"],
                     [f"Silhouette score: {plots['Optimized Deep AutoEncoder'][3][0]}", html.Br(), f"Calinski-Harabasz score: {plots['Optimized Deep AutoEncoder'][3][1]}", html.Br(),  f"Davies-Bouldin score: {plots['Optimized Deep AutoEncoder'][3][2]}"],
                     [f"Silhouette score: {plots['Variational AutoEncoder'][3][0]}", html.Br(), f"Calinski-Harabasz score: {plots['Variational AutoEncoder'][3][1]}", html.Br(),  f"Davies-Bouldin score: {plots['Variational AutoEncoder'][3][2]}"],
-                    [f"Silhouette score: {plots['Transformers (TCR-BERT)'][3][0]}", html.Br(), f"Calinski-Harabasz score: {plots['Transformers (TCR-BERT)'][3][1]}", html.Br(),  f"Davies-Bouldin score: {plots['Transformers'][3][2]}"],
+                    [f"Silhouette score: {plots['Transformers (TCR-BERT)'][3][0]}", html.Br(), f"Calinski-Harabasz score: {plots['Transformers (TCR-BERT)'][3][1]}", html.Br(),  f"Davies-Bouldin score: {plots['Transformers (TCR-BERT)'][3][2]}"],
                     ]
         else:
             return ["", "", "", "", "", "", "", "", ""]
