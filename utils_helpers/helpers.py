@@ -268,7 +268,7 @@ def plot_clusters(data, prediction, model_name):
     # Plot the clusters
     plt.switch_backend('Agg') 
     sns.set(style='white', context='poster', rc={'figure.figsize':(14,10)})
-    plt.scatter(embedding[:, 0], embedding[:, 1], c=labels, cmap=cmap, s=10)
+    plt.scatter(embedding[:, 0], embedding[:, 1], c=labels, cmap=cmap, s=20)
     plt.gca().set_aspect('equal', 'datalim')
 
     plt.colorbar(boundaries=np.arange(best_k+1)-0.5).set_ticks(np.arange(best_k))

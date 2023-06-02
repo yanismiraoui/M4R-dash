@@ -239,22 +239,22 @@ def compare_models():
                     ),
             html.Div(
                 [html.Div(html.Img(id="plot1",style={"width":"80%", })),
-                html.Div([html.Center([],id="plot1_description",style={"font-size":"3.0rem"})]),  
+                html.Div([html.Center([],id="plot1_description",style={"font-size":"2.0rem"})]),  
                 ],className="spaced div pretty_container",
             ),
             html.Div(
                 [html.Div(html.Img(id="plot2",style={"width":"80%", })),
-                html.Div([html.Center([],id="plot2_description",style={"font-size":"3.0rem"})]),
+                html.Div([html.Center([],id="plot2_description",style={"font-size":"2.0rem"})]),
                 ],className="spaced div pretty_container",
             ),
             html.Div(
                 [html.Div(html.Img(id="plot3",style={"width":"80%", })),
-                html.Div([html.Center([],id="plot3_description",style={"font-size":"3.0rem"})]),
+                html.Div([html.Center([],id="plot3_description",style={"font-size":"2.0rem"})]),
                 ],className="spaced div pretty_container",
             ),
             html.Div(
                 [html.Div(html.Img(id="plot4",style={"width":"80%", })),
-                html.Div([html.Center([],id="plot4_description",style={"font-size":"3.0rem"})]),
+                html.Div([html.Center([],id="plot4_description",style={"font-size":"2.0rem"})]),
                 ],className="spaced div pretty_container",
             ),
                 ],style={"display":"inline-block"},id="main_frame_div_compare"
