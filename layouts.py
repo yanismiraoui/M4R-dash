@@ -138,7 +138,7 @@ def home_tab():
                             html.Div(
                                 [
                                     html.Div(html.H4("General performance of the models: "),style={"font-size":"3.0rem"}),
-                                    html.Div([html.Img(src='data:image/png;base64,{}'.format(test_base64))]),
+                                    html.Div([html.Img(src='data:image/png;base64,{}'.format(test_base64),style={"width":"80%", })]),
                                 ],className="spaced_div pretty_container" 
                             )
                         ],
