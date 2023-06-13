@@ -16,7 +16,7 @@ def layout():
             html.Div(html.H5("CID: 01731821 / Imperial College London"),style={"color":"blue"}),
             html.Div(html.H5("yanis.miraoui19@imperial.ac.uk"),style={"color":"blue"}),
             ])]),
-            html.Div([dbc.Tabs([dbc.Tab(home_tab(),label="Home 🏠"), dbc.Tab(compare_models(),label="Compare models ⚖️"), dbc.Tab(about_tab(),label="About 📄")])])
+            html.Div([dbc.Tabs([dbc.Tab(home_tab(),label="Home 🏠"), dbc.Tab(compare_models(),label="Compare models ⚖️"), dbc.Tab(about_tab(),label="About 📄"), dbc.Tab(chat_tab(),label="Chatbot 🤖")])])
         ])
 
 def home_tab():
@@ -280,5 +280,11 @@ def about_tab():
                 ),
 
 
-
-
+def chat_tab():
+    return html.Div(
+                    [
+                        html.Div(html.H3("Research Paper Chatbot 🤖: "),style={"font-size":"2.0rem"}),
+                        html.Iframe(src="https://www.chatbase.co/chatbot-iframe/4pvB3Q1vd6kdKNHxwy7-Z",
+                        style={"height": "700px", "width": "100%"})
+                    ],className="pretty_container", style={'textAlign': 'center'}
+                )
