@@ -5,7 +5,7 @@ import base64
 
 colors = {"background": "#000000", "text": "#ffffff"}
 
-test_png = './assets/hist_classifiers.png'
+test_png = './assets/performance_metrics.png'
 test_base64 = base64.b64encode(open(test_png, 'rb').read()).decode('ascii')
 
 def layout():
