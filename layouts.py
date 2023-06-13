@@ -16,7 +16,7 @@ def layout():
             html.Div(html.H5("CID: 01731821 / Imperial College London"),style={"color":"blue"}),
             html.Div(html.H5("yanis.miraoui19@imperial.ac.uk"),style={"color":"blue"}),
             ])]),
-            html.Div([dbc.Tabs([dbc.Tab(home_tab(),label="Home 🏠"), dbc.Tab(compare_models(),label="Compare models ⚖️"), dbc.Tab(about_tab(),label="About 📄"), dbc.Tab(chat_tab(),label="Chatbot 🤖")])])
+            html.Div([dbc.Tabs([dbc.Tab(home_tab(),label="Home 🏠"), dbc.Tab(compare_models(),label="Compare models ⚖️"), dbc.Tab(chat_tab(),label="Chatbot 🤖"), dbc.Tab(about_tab(),label="About 📄")])])
         ])
 
 def home_tab():
